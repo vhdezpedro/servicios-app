@@ -23,6 +23,10 @@ app.get("/", (req, res) => {
   res.send("Servidor funcionando...");
 });
 
+app.get("/api/prueba/", (req, res) => {
+  res.json({ mensaje: "Esta es una prueba" });
+});
+
 const startServer = async () => {
   await testDB();
 
