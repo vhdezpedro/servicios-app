@@ -4,7 +4,7 @@
   "description": "project NodeJS+Express",
   "main": "server.js",
   "scripts": {
-    "dev": "npm run server.js"
+    "dev": "node server.js"
   },
   "author": "Pedro Villanueva",
   "license": "ISC",
