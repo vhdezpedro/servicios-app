@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <div className=" h-15 flex justify-between font-['Roboto'] bg-indigo-400 items-center">
+    <header className=" h-15 flex justify-between font-['Roboto'] bg-indigo-400 items-center">
       <h1 className="text-2xl font-bold p-3 text-white">Servicios Digitales</h1>
       <div className="flex gap-2 items-center">
         <h3 className="text-sm">
@@ -15,7 +15,7 @@ function Header() {
           Cerrar Sesión
         </button>
       </div>
-    </div>
+    </header>
   );
 }
 

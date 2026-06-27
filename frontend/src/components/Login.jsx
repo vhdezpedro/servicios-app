@@ -2,7 +2,7 @@ import React from "react";
 
 function Login() {
   return (
-    <div className="flex w-full h-screen justify-center items-center">
+    <div className="hidden absolute top-1/3 flex w-full justify-center items-center">
       <div className="flex flex-col gap-5 justify-center items-center w-60 border rounded-2xl p-3 font-['Roboto'] text-sm">
         <h3 className="text-2xl font-bold">Login</h3>
         <form className="flex flex-col gap-2 items-center" action="submit">
