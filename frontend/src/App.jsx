@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Login from "./components/Login";
@@ -17,6 +18,7 @@ function App() {
           <ServiceCard />
         </div>
       </section>
+      <Footer />
       <Login />
     </>
   );
