@@ -1,9 +1,10 @@
+import Header from "./components/Header";
 import Login from "./components/Login";
 
 function App() {
   return (
     <>
-      <h1 className="text-2xl text-red-500">Servicios App</h1>
+      <Header />
       <Login />
     </>
   );
