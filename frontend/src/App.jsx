@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import { useEffect } from "react";
 import { getServices } from "./api/services";
 import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const [users, setUsers] = useState({});
@@ -35,6 +36,7 @@ function App() {
         onShowLogin={() => setShowLogin(true)}
         onLogout={() => console.log("Cerrar sesión")}
       />
+      {/* <Dashboard /> */}
       <Home services={services} />
       <Footer />
       <Login visible={showLogin} onClose={() => setShowLogin(false)} />
