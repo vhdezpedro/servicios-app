@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header() {
+function Header({ onShowLogin, onLogout }) {
   return (
     <header className=" h-15 flex justify-between font-['Roboto'] bg-indigo-400 items-center px-3">
       <h1 className="text-2xl font-bold text-white">Servicios Digitales</h1>
@@ -8,10 +8,16 @@ function Header() {
         <h3 className="text-sm">
           Hola, <span className="text-green-300 font-bold">Super Admin</span>!
         </h3>
-        <button className="h-8.5 text-sm rounded-sm border-2 px-2 bg-indigo-400 text-white font-semibold border-white cursor-pointer">
+        <button
+          className="h-8.5 text-sm rounded-sm border-2 px-2 bg-indigo-400 text-white font-semibold border-white cursor-pointer"
+          onClick={onShowLogin}
+        >
           Ir a Dashboard
         </button>
-        <button className="h-8.5 text-sm rounded-sm px-2 bg-red-600 text-white font-semibold cursor-pointer">
+        <button
+          className="h-8.5 text-sm rounded-sm px-2 bg-red-600 text-white font-semibold cursor-pointer"
+          onClick={onLogout}
+        >
           Cerrar Sesión
         </button>
       </div>
