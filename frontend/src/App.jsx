@@ -1,27 +1,28 @@
 import { useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
 import Login from "./components/Login";
-import ServiceCard from "./components/ServiceCard";
-
-const services = [
-  {
-    id: 1,
-    name: "Servicio 1",
-    description: "Esta es la descripción del servicio",
-    price: "$2,000",
-  },
-  {
-    id: 2,
-    name: "Servicio 2",
-    description: "Esta es la descripción del servicio",
-    price: "$3,500",
-  },
-];
+import { useEffect } from "react";
+import { getServices } from "./api/services";
+import Home from "./components/Home";
 
 function App() {
+  const [users, setUsers] = useState({});
+  const [services, setServices] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
+
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const response = await getServices();
+        setServices(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadServices();
+  }, []);
 
   return (
     <>
@@ -34,22 +35,7 @@ function App() {
         onShowLogin={() => setShowLogin(true)}
         onLogout={() => console.log("Cerrar sesión")}
       />
-      <Hero />
-      <section className="mt-10 w-9/10 place-self-center">
-        <h3 className="mb-5 text-2xl font-bold text-center">
-          Nuestros Servicios
-        </h3>
-        <div className="grid grid-cols-2 gap-5 ">
-          {services.map((service) => (
-            <ServiceCard
-              key={service.id}
-              name={service.name}
-              description={service.description}
-              price={service.price}
-            />
-          ))}
-        </div>
-      </section>
+      <Home services={services} />
       <Footer />
       <Login visible={showLogin} onClose={() => setShowLogin(false)} />
     </>
