@@ -4,6 +4,7 @@ export const getServices = async (req, res) => {
   try {
     const [rows] = await db.query("SELECT * FROM servicios");
     res.json({ ok: true, data: rows });
+    console.log(rows);
   } catch (error) {
     console.error("Error al obtener los servicios: ", error.message);
     res

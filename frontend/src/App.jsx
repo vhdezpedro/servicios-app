@@ -16,6 +16,7 @@ function App() {
     const loadServices = async () => {
       try {
         const response = await getServices();
+        console.log(response);
         setServices(response.data.data);
       } catch (error) {
         console.error(error);
