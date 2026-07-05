@@ -8,15 +8,17 @@ import Home from "./components/Home";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  const [users, setUsers] = useState({});
+  const [admins, setAdmins] = useState({});
   const [services, setServices] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
+  const [login, setLogin] = useState(false);
+
+  console.log(admins);
 
   useEffect(() => {
     const loadServices = async () => {
       try {
         const response = await getServices();
-        console.log(response);
         setServices(response.data.data);
       } catch (error) {
         console.error(error);
@@ -25,6 +27,11 @@ function App() {
 
     loadServices();
   }, []);
+
+  const handleLogout = () => {
+    setAdmins({});
+    setLogin(false);
+  };
 
   return (
     <>
@@ -35,12 +42,19 @@ function App() {
       ></div>
       <Header
         onShowLogin={() => setShowLogin(true)}
-        onLogout={() => console.log("Cerrar sesión")}
+        onLogout={handleLogout}
+        admins={admins}
+        login={login}
       />
       {/* <Dashboard /> */}
       <Home services={services} />
       <Footer />
-      <Login visible={showLogin} onClose={() => setShowLogin(false)} />
+      <Login
+        visible={showLogin}
+        onClose={() => setShowLogin(false)}
+        setAdmins={setAdmins}
+        setLogin={setLogin}
+      />
     </>
   );
 }

@@ -20,7 +20,7 @@ export const getServicesbyId = async (req, res) => {
 
     if (!result[0]) {
       return res
-        .status(404)
+        .status(204)
         .json({ ok: false, message: "Servicio no encontrado." });
     }
 
@@ -66,7 +66,7 @@ export const updateService = async (req, res) => {
 
     if (result.affectedRows === 0) {
       return res
-        .status(404)
+        .status(204)
         .json({ ok: false, message: "Servicio no encontrado." });
     }
 
@@ -91,7 +91,7 @@ export const deleteService = async (req, res) => {
 
     if (result.affectedRows === 0) {
       return res
-        .status(404)
+        .status(204)
         .json({ ok: false, message: "Servicio no encontrado." });
     }
 

@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getAdmin } from "../api/admins";
 
-function Login({ visible, onClose }) {
+function Login({ visible, onClose, setAdmins, setLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login:", { username, password });
 
-    setPassword("");
+    try {
+      const response = await getAdmin(username, password);
+      setAdmins(response.data.data);
+      setLogin(true);
+
+      setPassword("");
+      setUsername("");
+      setLoginMessage("");
+      onClose();
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        setLoginMessage(error.response.data.message);
+      }
+    }
+  };
+
+  const handleCancel = () => {
     setUsername("");
+    setPassword("");
+    setLoginMessage("");
     onClose();
   };
 
@@ -51,11 +71,12 @@ function Login({ visible, onClose }) {
             <button
               type="button"
               className="rounded-md px-2 py-0.5 bg-red-700 text-white font-medium transition-colors duration-200 hover:bg-red-600 cursor-pointer"
-              onClick={onClose}
+              onClick={handleCancel}
             >
               Cancelar
             </button>
           </div>
+          <div className="mt-2 text-red-600 text-xs">{loginMessage}</div>
         </form>
       </div>
     </div>
