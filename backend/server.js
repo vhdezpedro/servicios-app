@@ -1,4 +1,5 @@
-import "dotenv/config";
+import "./src/config/env.js";
+
 import createApp from "./src/app.js";
 import { testConnection } from "./src/config/db.js";
 

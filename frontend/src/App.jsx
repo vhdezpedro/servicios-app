@@ -13,8 +13,6 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [login, setLogin] = useState(false);
 
-  console.log(admins);
-
   useEffect(() => {
     const loadServices = async () => {
       try {

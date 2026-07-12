@@ -4,7 +4,6 @@ export const getServices = async (req, res) => {
   try {
     const [rows] = await db.query("SELECT * FROM servicios");
     res.json({ ok: true, data: rows });
-    console.log(rows);
   } catch (error) {
     console.error("Error al obtener los servicios: ", error.message);
     res
@@ -20,7 +19,7 @@ export const getServicesbyId = async (req, res) => {
 
     if (!result[0]) {
       return res
-        .status(204)
+        .status(404)
         .json({ ok: false, message: "Servicio no encontrado." });
     }
 
@@ -66,7 +65,7 @@ export const updateService = async (req, res) => {
 
     if (result.affectedRows === 0) {
       return res
-        .status(204)
+        .status(404)
         .json({ ok: false, message: "Servicio no encontrado." });
     }
 
@@ -91,7 +90,7 @@ export const deleteService = async (req, res) => {
 
     if (result.affectedRows === 0) {
       return res
-        .status(204)
+        .status(404)
         .json({ ok: false, message: "Servicio no encontrado." });
     }
 

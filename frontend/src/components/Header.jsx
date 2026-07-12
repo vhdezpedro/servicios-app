@@ -8,6 +8,11 @@ function Header({ onShowLogin, onLogout, admins, login }) {
 
     onShowLogin();
   };
+
+  const handleDashboard = () => {
+    console.log("Ir a Dashboard");
+  };
+
   return (
     <header className=" h-15 flex justify-between font-['Roboto'] bg-indigo-400 items-center px-3">
       <h1 className="text-2xl font-bold text-white">Servicios Digitales</h1>
@@ -18,8 +23,8 @@ function Header({ onShowLogin, onLogout, admins, login }) {
           <span className="text-green-300 font-bold">{rol}</span>!
         </h3>
         <button
-          className="h-8.5 text-sm rounded-sm border-2 px-2 bg-indigo-400 text-white font-semibold border-white cursor-pointer"
-          // onClick={}
+          className="h-8.5 text-sm rounded-sm border-2 px-2 bg-indigo-400 text-white font-semibold border-white cursor-pointer transition-colors duration-800 hover:bg-white hover:border-indigo-500 hover:text-indigo-500"
+          onClick={handleDashboard}
         >
           Ir a Dashboard
         </button>
