@@ -10,19 +10,19 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
-export const testConnection = async () => {
+const connectDB = async () => {
   try {
-    const connection = await db.getConnection();
-    console.log("Conectado a MySQL.");
-    connection.release();
+    await db.getConnection();
+    console.log("DB connected via MySQL");
   } catch (error) {
-    console.error("Error al conectar a la base de datos: ", error.message);
-    throw error;
+    console.error("Database connection failed:", error.message);
+    process.exit(1);
   }
 };
 
-db.on("error", (err) => {
-  console.error("Error en la conexión a la base de datos: ", err.message);
-});
+const disconnectDB = async () => {
+  await db.end();
+  console.log("DB disconnected");
+};
 
-export default db;
+export { db, connectDB, disconnectDB };

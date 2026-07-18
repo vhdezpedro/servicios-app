@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import { db } from "../config/db.js";
 
 export const getAdmin = async (req, res) => {
   const { username, password } = req.body;

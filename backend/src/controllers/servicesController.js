@@ -1,14 +1,14 @@
-import db from "../config/db.js";
+import { db } from "../config/db.js";
 
 export const getServices = async (req, res) => {
   try {
     const [rows] = await db.query("SELECT * FROM servicios");
-    res.json({ ok: true, data: rows });
+    res.json({ status: "success", data: rows });
   } catch (error) {
     console.error("Error al obtener los servicios: ", error.message);
     res
       .status(500)
-      .json({ ok: false, message: "Error al obtener los servicios." });
+      .json({ status: "error", message: "Error al obtener los servicios." });
   }
 };
 
@@ -20,16 +20,16 @@ export const getServicesbyId = async (req, res) => {
     if (!result[0]) {
       return res
         .status(404)
-        .json({ ok: false, message: "Servicio no encontrado." });
+        .json({ status: "error", message: "Servicio no encontrado." });
     }
 
-    res.json({ ok: true, data: result });
+    res.json({ status: "success", data: result });
     console.log(result);
   } catch (error) {
     console.error("Error al obtener el servicios: ", error.message);
     res
       .status(500)
-      .json({ ok: false, message: "Error al obtener el servicio." });
+      .json({ status: "error", message: "Error al obtener el servicio." });
   }
 };
 
@@ -43,13 +43,15 @@ export const createService = async (req, res) => {
     );
 
     res.status(201).json({
-      ok: true,
+      status: "success",
       message: "Servicio creado exitosamente.",
       data: { id: result.insertId, nombre, descripcion, precio },
     });
   } catch (error) {
     console.error("Error al crear el servicio: ", error.message);
-    res.status(500).json({ ok: false, message: "Error al crear el servicio." });
+    res
+      .status(500)
+      .json({ status: "error", message: "Error al crear el servicio." });
   }
 };
 
@@ -66,11 +68,11 @@ export const updateService = async (req, res) => {
     if (result.affectedRows === 0) {
       return res
         .status(404)
-        .json({ ok: false, message: "Servicio no encontrado." });
+        .json({ status: "error", message: "Servicio no encontrado." });
     }
 
     res.json({
-      ok: true,
+      status: "success",
       message: "Servicio actualizado exitosamente.",
       data: { id, nombre, descripcion, precio },
     });
@@ -78,7 +80,7 @@ export const updateService = async (req, res) => {
     console.error("Error al actualizar el servicio: ", error.message);
     res
       .status(500)
-      .json({ ok: false, message: "Error al actualizar el servicio." });
+      .json({ status: "error", message: "Error al actualizar el servicio." });
   }
 };
 
@@ -91,14 +93,17 @@ export const deleteService = async (req, res) => {
     if (result.affectedRows === 0) {
       return res
         .status(404)
-        .json({ ok: false, message: "Servicio no encontrado." });
+        .json({ status: "error", message: "Servicio no encontrado." });
     }
 
-    res.json({ ok: true, message: "Servicio eliminado exitosamente." });
+    res.json({
+      status: "success",
+      message: "Servicio eliminado exitosamente.",
+    });
   } catch (error) {
     console.error("Error al eliminar el servicio: ", error.message);
     res
       .status(500)
-      .json({ ok: false, message: "Error al eliminar el servicio." });
+      .json({ status: "error", message: "Error al eliminar el servicio." });
   }
 };

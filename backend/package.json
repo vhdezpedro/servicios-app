@@ -5,18 +5,20 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon server.js",
-    "test": "NODE_ENV=test nodemon server.js",
-    "production": "NODE_ENV=production nodemon server.js"
+    "dev": "NODE_ENV=development nodemon ./src/server.js",
+    "test": "NODE_ENV=test nodemon ./src/server.js",
+    "production": "NODE_ENV=production nodemon ./src/server.js"
   },
   "author": "Pedro Villanueva",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
     "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.22.5"
   },
   "devDependencies": {

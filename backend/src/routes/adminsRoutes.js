@@ -3,6 +3,6 @@ import { getAdmin } from "../controllers/adminsController.js";
 
 const router = express.Router();
 
-router.post("/api/admin", getAdmin);
+router.post("/", getAdmin);
 
 export default router;
