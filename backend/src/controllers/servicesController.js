@@ -34,12 +34,12 @@ export const getServicesbyId = async (req, res) => {
 };
 
 export const createService = async (req, res) => {
-  const { nombre, descripcion, precio } = req.body;
+  const { nombre, descripcion, precio, usuario } = req.body;
 
   try {
     const [result] = await db.query(
-      "INSERT INTO servicios (nombre, descripcion, precio) VALUES (?, ?, ?)",
-      [nombre, descripcion, precio],
+      "INSERT INTO servicios (nombre, descripcion, precio, created_by) VALUES (?, ?, ?, ?)",
+      [nombre, descripcion, precio, usuario.id],
     );
 
     res.status(201).json({

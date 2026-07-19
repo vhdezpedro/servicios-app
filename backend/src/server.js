@@ -19,10 +19,7 @@ const __dirname = path.dirname(__filename);
 
 const myPath = path.join(__dirname, "..", path.sep, "..", "public");
 
-console.log(myPath);
-
 connectDB();
-
 const app = express();
 
 // Middlewares
@@ -42,7 +39,6 @@ app.get("/registro", (req, res) => {
   res.sendFile(path.join(myPath, "registro.html"));
 });
 app.get("/login", (req, res) => {
-  console.log("Entro aquí");
   res.sendFile(path.join(myPath, "login.html"));
 });
 app.get("/dashboard", (req, res) => {

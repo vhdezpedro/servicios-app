@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
 const register = async (req, res) => {
-  const { username, password, email, rol } = req.body;
+  const { nombre, password, email } = req.body;
 
   //   Check is admin already exists
   const [existingAdmin] = await db.query(
@@ -12,7 +12,45 @@ const register = async (req, res) => {
   );
 
   if (existingAdmin[0]) {
-    return res.status(400).json({ error: "Admin already exists." });
+    return res.status(400).json({ error: "User already exists." });
+  }
+
+  // Hash password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // create a new admin
+  try {
+    const [result] = await db.query(
+      "INSERT INTO admin (username, password, email) VALUES (?, ?, ?)",
+      [nombre, hashedPassword, email],
+    );
+
+    // Generate JWT Token
+    const token = generateToken(result.insertId, res);
+
+    res.status(201).json({
+      status: "success",
+      data: { id: result.insertId, nombre, email },
+      token,
+    });
+  } catch (error) {
+    console.error("Error creating admin: ", error.message);
+    res.status(500).json({ error: "Error creating admin." });
+  }
+};
+
+const adminRegistration = async (req, res) => {
+  const { nombre, password, email, rol } = req.body;
+
+  //   Check is admin already exists
+  const [existingAdmin] = await db.query(
+    "SELECT * FROM admin WHERE email = ?",
+    [email],
+  );
+
+  if (existingAdmin[0]) {
+    return res.status(400).json({ error: "User already exists." });
   }
 
   // Hash password
@@ -23,7 +61,7 @@ const register = async (req, res) => {
   try {
     const [result] = await db.query(
       "INSERT INTO admin (username, password, email, rol) VALUES (?, ?, ?, ?)",
-      [username, hashedPassword, email, rol],
+      [nombre, hashedPassword, email, rol],
     );
 
     // Generate JWT Token
@@ -31,7 +69,7 @@ const register = async (req, res) => {
 
     res.status(201).json({
       status: "success",
-      data: { id: result.insertId, username, email, rol },
+      data: { id: result.insertId, nombre, email, rol },
       token,
     });
   } catch (error) {
@@ -70,7 +108,7 @@ const login = async (req, res) => {
     status: "success",
     data: {
       id: existingAdmin[0].id,
-      username: existingAdmin[0].username,
+      nombre: existingAdmin[0].username,
       email: existingAdmin[0].email,
       rol: existingAdmin[0].rol,
     },
@@ -89,4 +127,4 @@ const logout = (req, res) => {
     .json({ status: "success", message: "Logged out successfully." });
 };
 
-export { register, login, logout };
+export { register, login, logout, adminRegistration };
