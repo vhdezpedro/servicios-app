@@ -28,7 +28,7 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5501"],
+    origin: ["http://127.0.0.1:5001"],
   }),
 );
 app.use(express.json());
@@ -42,6 +42,7 @@ app.get("/registro", (req, res) => {
   res.sendFile(path.join(myPath, "registro.html"));
 });
 app.get("/login", (req, res) => {
+  console.log("Entro aquí");
   res.sendFile(path.join(myPath, "login.html"));
 });
 app.get("/dashboard", (req, res) => {
